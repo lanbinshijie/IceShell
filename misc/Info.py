@@ -6,11 +6,9 @@
 
 class ProgramInfo:
     # Program Version
-    version = "alpha 0.0.1"
+    version = "v1.0.0-alphav1.1.0"
     author = "Lanbin"
-    update_logs = [
-        {"alpha 0.0.1": "1. 搭建基本的程序框架"}
-    ]
     using_libs = ["os", "sys"]
     models_path = r"./models/"
+    registered_modules = ["print", "downlib", "dellib", "scan"]
     

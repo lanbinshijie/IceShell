@@ -27,6 +27,9 @@ def iPrint_Bold(text: str):
 def iPrintLog(text: str, processName="IShell",modelName="Main",typer:str ="info"):
     print(iPrint(f"[{processName}][{modelName}][{typer.upper()}] {text}", typer))
 
+def iPrintLogNative(text: str, processName="IShell",modelName="Main",typer:str ="info"):
+    print(iPrint(f"[{processName}][{modelName}][{typer.upper()}] {text}", typer), end="")
+
 def iPrint(text: str, typer: str, bold: bool = False):
     res = text
     if typer == "error": res = iPrint_Error(res)
