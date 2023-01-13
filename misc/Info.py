@@ -6,9 +6,9 @@
 
 class ProgramInfo:
     # Program Version
-    version = "v1.0.0-alphav0.1.0"
+    version = "v1.0.0-alphav1.1.0"
     author = "Lanbin"
     using_libs = ["os", "sys"]
     models_path = r"./models/"
-    registered_modules = ["print", "downlib", "dellib"]
+    registered_modules = ["print", "downlib", "dellib", "scan"]
     

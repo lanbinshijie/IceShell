@@ -42,6 +42,30 @@ Ice Shell（简称IShell，中文名“冰壳”），是一个Python编写的�
 
 有意开发可以加我微信：lanbinleo 或者 QQ：271360178
 
+## IShell自带功能
+IShell本质上作为一个模块化Shell，装载了一些小工具。
+
+- [X] print - 打印Helloworld
+- [X] downlib - 自动下载所需的依赖库
+- [X] dellib - 手动删除某个依赖库
+- [X] scan - 端口扫描器，使用方法：scan host -st startPort -np endPort
+- [ ] stress - 压力测试器
+- [ ] demo - 内置98%API，可以作为开发手册使用
+
+** 以上功能正在实现中 **
+
+## IShell插件
+
+- [ ] remote - 集成远程控制电脑屏幕功能
+- [ ] trojan - 集成生成木马程序、监听木马程序和控制电脑一体的工具
+- [ ] airport - 搜索在线的clash节点池（待定）
+- [ ] news - 获取今日新闻（有点鸡肋说实话）
+- [ ] baidu - 我来帮你百度一下
+- [ ] bigbug - 常见漏洞集成库
+- [ ] spider - 可视化爬取网站页面（大工程！）
+
+** 以上功能正在策划中 **
+
 ## IShell亮点
 
 - 模块化编程，更易拓展
@@ -80,6 +104,8 @@ Ice Shell（简称IShell，中文名“冰壳”），是一个Python编写的�
 - [X] 一键检测依赖并询问是否安装
 - [X] 将模块部分从主程序中剥离出来
 - [ ] 重构难看的Logo
+- [ ] 完善报错信息
+- [ ] 更新更多标准库
 
 ## 代码提交标准（给自己看的）
 - feat：新功能
