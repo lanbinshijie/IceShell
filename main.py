@@ -9,6 +9,7 @@ from misc.Color import Colors
 from misc.Logo import Logo
 from tools.SelfCheck import SelfCheck
 from misc.Info import ProgramInfo
+from misc.Error import Error
 
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
@@ -25,6 +26,8 @@ def IceShell():
     elif command[0] == "q":
         print("Bye~")
         exit(0)
+    else:
+        Error.printError(10000)
 
 if __name__ == "__main__":
     # 程序从这里开始
