@@ -14,7 +14,7 @@ from misc.Error import Error
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
     os.chdir(r"./models")
-    command = sys.executable + f" ./{moduleName}.py" + args
+    command = sys.executable + f" ./{moduleName}.py " + args
     os.system(command)
     os.chdir(r"..")
 

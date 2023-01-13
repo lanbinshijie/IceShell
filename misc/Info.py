@@ -10,5 +10,5 @@ class ProgramInfo:
     author = "Lanbin"
     using_libs = ["os", "sys"]
     models_path = r"./models/"
-    registered_modules = ["print"]
+    registered_modules = ["print", "downlib", "dellib"]
     
