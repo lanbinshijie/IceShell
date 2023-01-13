@@ -1,11 +1,17 @@
+#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
+# @Author  : Lanbin
+# @Software: Vscode
+# @Time    : 2023-1-13 18:49
+
 import os, sys
 from misc.Color import Colors
 from misc.Logo import Logo
 from tools.SelfCheck import SelfCheck
+from misc.Info import ProgramInfo
 
-def ExecuteModel(choice, keyWord, moduleName):
+def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
-    args = choice[len(keyWord):]
     os.chdir(r"./models")
     command = sys.executable + f" ./{moduleName}.py" + args
     os.system(command)
@@ -13,10 +19,10 @@ def ExecuteModel(choice, keyWord, moduleName):
 
 def IceShell():
     extra = ""
-    choice = input(Colors.RED + extra + "IShell> " + Colors.END)
-    if choice[:5] == "print":
-        ExecuteModel(choice, "print", "print")
-    elif choice == "0" or choice == "q":
+    command = input(Colors.RED + extra + "IShell> " + Colors.END).split(" ")
+    if command[0] in ProgramInfo.registered_modules:
+        ExecuteModel(" ".join(command[1:]), command[0])
+    elif command[0] == "q":
         print("Bye~")
         exit(0)
 
