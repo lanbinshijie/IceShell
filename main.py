@@ -20,12 +20,19 @@ def ExecuteModel(args, moduleName):
 
 def IceShell():
     extra = ""
-    command = input(Colors.RED + extra + "IShell> " + Colors.END).split(" ")
+    commandN = input(Colors.RED + extra + "IShell> " + Colors.END)
+    command = commandN.split(" ")
     if command[0] in ProgramInfo.registered_modules:
         ExecuteModel(" ".join(command[1:]), command[0])
     elif command[0] == "q":
         print("Bye~")
         exit(0)
+    # elif command[0] == "c":
+    #     try:
+    #         os.system(commandN)
+    #     except Exception as e:
+    #         print(e)
+    #         exit(0)
     else:
         Error.printError(10000)
 
