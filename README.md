@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://hice.run" target="_blank" rel="noopener noreferrer">
-        <img width="100" src="https://s1.ax1x.com/2023/01/15/pSQqlRK.png" alt="logo" />
+        <img width="100" src="https://s1.ax1x.com/2023/01/15/pSQqJqH.png" alt="logo" />
     </a>
 </p>
 
@@ -131,4 +131,5 @@ IShell本质上作为一个模块化Shell，装载了一些小工具。
 - Logo链接
     1. https://s1.ax1x.com/2023/01/13/pSK4gln.png
     2. https://s1.ax1x.com/2023/01/13/pSK42yq.png
-    3. https://s1.ax1x.com/2023/01/15/pSQqlRK.png [新版]
+    3. https://s1.ax1x.com/2023/01/15/pSQqlRK.png [新版1]
+    4. https://s1.ax1x.com/2023/01/15/pSQqJqH.png [新版2]
