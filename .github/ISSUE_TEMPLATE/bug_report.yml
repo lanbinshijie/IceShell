@@ -1,23 +1,24 @@
-name: Bug 反馈
+name: Bug report
 description: 提交 Bug 反馈
 labels: [ bug ]
+assignees: lanbinshijie
 body:
   - type: markdown
     id: preface
     attributes:
       value: |
-        感谢你花时间填写此错误报告！在开始之前，我们非常推荐阅读一遍[《开源最佳实践》](https://github.com/LinuxSuRen/open-source-best-practice)，这会在很大程度上提高我们彼此的效率。
+        你好！首先感谢你对IceShell的支持，同时也感谢你愿意花一些时间填写此错误报告！在开始之前，我们非常推荐阅读一遍[《开源最佳实践》](https://github.com/LinuxSuRen/open-source-best-practice)，这会在很大程度上提高我们彼此的效率。
   - type: markdown
     id: environment
     attributes:
-      value: "## 环境信息"
+      value: "## 冰壳的环境"
   - type: input
     id: version
     validations:
       required: true
     attributes:
       label: "是什么版本出现了此问题？"
-      description: "查看misc中的Info"
+      description: "您可以通过查看misc中的Info获取版本号！"
   - type: markdown
     id: details
     attributes:
@@ -25,10 +26,15 @@ body:
   - type: textarea
     id: what-happened
     attributes:
-      label: "发生了什么？"
-      description: "最好还告诉我们，你预计会发生什么。"
+      label: "请描述一下这个bug"
+      description: "发生了什么？这个bug是什么样的？"
     validations:
       required: true
+  - type: textarea
+    id: solve
+    attributes:
+      label: "解决方法"
+      description: "您是否尝试自行解决这个Bug？"
   - type: textarea
     id: additional-information
     attributes:
