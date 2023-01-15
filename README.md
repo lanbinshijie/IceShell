@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://hice.run" target="_blank" rel="noopener noreferrer">
-        <img width="100" src="https://s1.ax1x.com/2023/01/15/pSQqJqH.png" alt="logo" />
+        <img width="100" src="https://s1.ax1x.com/2023/01/15/pSK4gln.png" alt="logo" />
     </a>
 </p>
 
