@@ -10,5 +10,6 @@ class ProgramInfo:
     author = "Lanbin"
     using_libs = ["os", "sys"]
     models_path = r"./models/"
-    registered_modules = ["print", "downlib", "dellib", "scan", "models"]
+    registered_modules = ["print", "downlib", "dellib", "scan", "models", "shell", "*"]
+    debug_mode = True
     
