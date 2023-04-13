@@ -14,12 +14,15 @@ from misc.Error import Error
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
     os.chdir(r"./models")
+    is_mutiple = False
     if not os.path.exists(f"{moduleName}.py"):
         os.chdir(rf"./{moduleName}")
         command = sys.executable + f" ./main.py " + args
+        is_mutiple = True
     else:
         command = sys.executable + f" ./{moduleName}.py " + args
     os.system(command)
+    if is_mutiple: os.chdir(r"..")
     os.chdir(r"..")
 
 def IceShell():
