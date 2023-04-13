@@ -9,6 +9,7 @@ from misc.Color import Colors
 from misc.Logo import Logo
 from tools.SelfCheck import SelfCheck
 from misc.Info import ProgramInfo
+from misc.Info import SSR_Reader
 from misc.Error import Error
 from tools.Phraser import PS1
 
@@ -42,6 +43,8 @@ if __name__ == "__main__":
     # 程序从这里开始
     SelfCheck.WelcomeStart() # 显示Logo
     SelfCheck.LibCheck()
+    ssr = SSR_Reader()
+    print(ssr.paraphraser()["version"])
     print(Colors.BLUE + Logo.div_line_n_m + Colors.END + "\n")
     while True:
         try:

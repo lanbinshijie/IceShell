@@ -43,7 +43,7 @@ class SSR_Reader:
         # 读取配置文件
         self.config = self.paraphraser(ProgramInfo.ssr_path + "config.ssr")
         # 更新配置
-        self.update_config()
+        # self.update_config()
 
 
     # 解码器：将配置文件中的格式转化成字典
@@ -53,7 +53,7 @@ class SSR_Reader:
     # 请注意，“#”是注释符号，不会被解析，一般独占一行的开头
     # 请注意，如果value中有“=”号，那么value中的“=”号不会被解析为=号而是作为普通字符
 
-    def paraphraser(self, config_file: str):
+    def paraphraser(self, config_file: str = ProgramInfo.ssr_path + "config.ssr"):
         # 返回值：配置字典
         # 读取文件
         with open(config_file, "r") as f:
