@@ -12,17 +12,24 @@ from misc.Info import ProgramInfo
 from misc.Info import SSR_Reader
 from misc.Error import Error
 from tools.Phraser import PS1
+from tools.Phraser import alias
+
+ALIAS = alias()
 
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
     os.chdir(r"./models")
     is_mutiple = False
-    if not os.path.exists(f"{moduleName}.py"):
+    if os.path.exists(f"{moduleName}.py"):
+        command = sys.executable + f" ./{moduleName}.py " + args
+    elif os.path.exists(f"./{moduleName}/main.py"):
         os.chdir(rf"./{moduleName}")
         command = sys.executable + f" ./main.py " + args
         is_mutiple = True
     else:
-        command = sys.executable + f" ./{moduleName}.py " + args
+        if ALIAS.exsist(moduleName): 
+            command = ALIAS.get(moduleName)
+            command = sys.executable + f" ./{command}.py " + args
     os.system(command)
     if is_mutiple: os.chdir(r"..")
     os.chdir(r"..")
