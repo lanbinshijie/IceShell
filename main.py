@@ -10,6 +10,7 @@ from misc.Logo import Logo
 from tools.SelfCheck import SelfCheck
 from misc.Info import ProgramInfo
 from misc.Error import Error
+from tools.Phraser import PS1
 
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
@@ -27,7 +28,7 @@ def ExecuteModel(args, moduleName):
 
 def IceShell():
     extra = ""
-    commandN = input(Colors.RED + extra + "IShell> " + Colors.END)
+    commandN = input(Colors.RED + extra + PS1.paraphraser() + Colors.END)
     command = commandN.split(" ")
     if command[0] == "q":
         print("Bye~")
