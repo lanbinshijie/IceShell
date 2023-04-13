@@ -29,11 +29,11 @@ def IceShell():
     extra = ""
     commandN = input(Colors.RED + extra + "IShell> " + Colors.END)
     command = commandN.split(" ")
-    if command[0] in ProgramInfo.registered_modules or "*" in ProgramInfo.registered_modules:
-        ExecuteModel(" ".join(command[1:]), command[0])
-    elif command[0] == "q":
+    if command[0] == "q":
         print("Bye~")
         exit(0)
+    elif command[0] in ProgramInfo.registered_modules or "*" in ProgramInfo.registered_modules:
+        ExecuteModel(" ".join(command[1:]), command[0])
     else:
         Error.printError(10000)
 
