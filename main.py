@@ -44,7 +44,7 @@ if __name__ == "__main__":
     SelfCheck.WelcomeStart() # 显示Logo
     SelfCheck.LibCheck()
     ssr = SSR_Reader()
-    print(ssr.paraphraser()["version"])
+    # print(ssr.paraphraser()["version"])
     print(Colors.BLUE + Logo.div_line_n_m + Colors.END + "\n")
     while True:
         try:
