@@ -30,8 +30,7 @@ def IceShell():
     commandN = input(Colors.RED + extra + "IShell> " + Colors.END)
     command = commandN.split(" ")
     if command[0] in ProgramInfo.registered_modules or "*" in ProgramInfo.registered_modules:
-        ExecuteModel(" ".join(command[1:]), command[0]) # 这个代码是不是有点问题？
-        # ExecuteModel("",commandN)
+        ExecuteModel(" ".join(command[1:]), command[0])
     elif command[0] == "q":
         print("Bye~")
         exit(0)
