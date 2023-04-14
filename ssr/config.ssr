@@ -1,0 +1,7 @@
+version="v1.0.0-alphav1.2.1"
+author="Lanbin"
+using_libs=['os', 'sys']
+models_path="./models/"
+registered_modules=['print', 'downlib', 'dellib', 'scan', 'models', 'shell', '*']
+debug_mode=True
+ssr_path="./ssr/"

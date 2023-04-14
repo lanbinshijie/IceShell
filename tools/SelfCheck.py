@@ -7,6 +7,7 @@ from misc.Info import ProgramInfo
 from misc.Color import Colors
 from misc.Logo import Logo
 from tools.iPrint import *
+from tools.Phraser import alias
 import os
 
 class SelfCheck:
@@ -61,10 +62,13 @@ class SelfCheck:
     
     def CheckModel(modelName):
         # iPrintLog("Checking model \""+modelName+"\"...", processName="SelfCheck", modelName="Models", typer="info")
+        ali = alias()
         if os.path.exists(ProgramInfo.models_path + modelName +".py"):
             # iPrintLog("Model \""+modelName+"\" is exists. ", processName="SelfCheck", modelName="Models", typer="success")
             return True
         elif os.path.exists(ProgramInfo.models_path + modelName + "/main.py"):
+            return True
+        elif ali.exsist(modelName):
             return True
         else:
             iPrintLog("Model \""+modelName+"\" is NOT exists! Please Check `main.py` and `"+ modelName +".py`", processName="SelfCheck", modelName="Models", typer="error")

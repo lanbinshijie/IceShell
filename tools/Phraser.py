@@ -18,3 +18,40 @@ class PS1:
         prompt = prompt.replace("%u", "Lanbin")
         return prompt
 
+class alias:
+    def __init__(self, path="tools/alias.conf"):
+        with open(path, "r") as f:
+            conf = f.read()
+        
+        conf = conf.split("\n")
+        self.conf_dict = {}
+        self.author_dict = {}
+        for line in conf:
+            if line != "":
+                line = line.split("=")
+                self.conf_dict[line[0]] = line[1]
+
+    def get(self, key):
+        return self.conf_dict[key]
+
+    def exsist(self, key):
+        if key in self.conf_dict:
+            return True
+        else:
+            return False
+    
+    def getAll(self):
+        self.reRead()
+        return self.conf_dict
+    
+    def reRead(self, path="../tools/alias.conf"):
+        with open(path, "r") as f:
+            conf = f.read()
+        
+        conf = conf.split("\n")
+        self.conf_dict = {}
+        self.author_dict = {}
+        for line in conf:
+            if line != "":
+                line = line.split("=")
+                self.conf_dict[line[0]] = line[1]

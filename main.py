@@ -9,19 +9,27 @@ from misc.Color import Colors
 from misc.Logo import Logo
 from tools.SelfCheck import SelfCheck
 from misc.Info import ProgramInfo
+from misc.Info import SSR_Reader
 from misc.Error import Error
 from tools.Phraser import PS1
+from tools.Phraser import alias
+
+ALIAS = alias()
 
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
     os.chdir(r"./models")
     is_mutiple = False
-    if not os.path.exists(f"{moduleName}.py"):
+    if os.path.exists(f"{moduleName}.py"):
+        command = sys.executable + f" ./{moduleName}.py " + args
+    elif os.path.exists(f"./{moduleName}/main.py"):
         os.chdir(rf"./{moduleName}")
         command = sys.executable + f" ./main.py " + args
         is_mutiple = True
     else:
-        command = sys.executable + f" ./{moduleName}.py " + args
+        if ALIAS.exsist(moduleName): 
+            command = ALIAS.get(moduleName)
+            command = sys.executable + f" ./{command}.py " + args
     os.system(command)
     if is_mutiple: os.chdir(r"..")
     os.chdir(r"..")
@@ -42,6 +50,8 @@ if __name__ == "__main__":
     # 程序从这里开始
     SelfCheck.WelcomeStart() # 显示Logo
     SelfCheck.LibCheck()
+    ssr = SSR_Reader()
+    # print(ssr.paraphraser()["version"])
     print(Colors.BLUE + Logo.div_line_n_m + Colors.END + "\n")
     while True:
         try:
