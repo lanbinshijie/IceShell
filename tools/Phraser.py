@@ -41,4 +41,17 @@ class alias:
             return False
     
     def getAll(self):
+        self.reRead()
         return self.conf_dict
+    
+    def reRead(self, path="../tools/alias.conf"):
+        with open(path, "r") as f:
+            conf = f.read()
+        
+        conf = conf.split("\n")
+        self.conf_dict = {}
+        self.author_dict = {}
+        for line in conf:
+            if line != "":
+                line = line.split("=")
+                self.conf_dict[line[0]] = line[1]
