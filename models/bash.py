@@ -7,6 +7,8 @@ import sys
 
 sys.path.append("..")
 
+from misc.Color import Colors
+
 from argparse import ArgumentParser
 from main import ExecuteModel
 
@@ -139,7 +141,7 @@ class Ish:
         # print("||".join(args))
         for arg in args:
             # 当参数为变量时，输出变量的值
-            print(self.deal_var(arg), end=" ")
+            print(self.deal_var(arg), end="")
         print()
     
 
@@ -165,9 +167,12 @@ class Ish:
                     return var
             else:
                 return self.var_call(var)
+        elif var in ["Color.red", "Color.green", "Color.blue", "Color.yellow", "Color.purple", "Color.cyan", "Color.end", "Color.bold", "Color.underline"]:
+            c = var.split(".")
+            c = c[1].upper()
+            return getattr(Colors, c)
         else:
             return var
-        
 
     # 替换一个命令中的所有变量为它的值，然后返回计算结果
     def replace_var(self, command):

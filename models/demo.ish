@@ -21,3 +21,5 @@ $% = "temp"
 $stu=[1,2,3]
 echo $stu
 echo $stu->0
+
+echo Color.blue $stu Color.end
