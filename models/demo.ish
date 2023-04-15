@@ -1,5 +1,14 @@
 $var="hello"
+$app=1+1
+echo app $app
+$app=$app+1
+echo Var APP += 1
+echo app $app
 $ah="meme"
 $num1=1
 echo 1
 echo $var
+# 这是TMP临时变量
+$% = "temp"
+# 比如我们要输出$num1 + 1
+# 我们应该先
