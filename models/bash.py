@@ -21,6 +21,7 @@ from misc.Error import Error
 from tools.Phraser import PS1
 from tools.Phraser import alias
 from tools.SelfCheck import SelfCheck
+from argparse import ArgumentParser
 from main import ExecuteModel
 
 # ALIAS = alias(path="alias.conf")
@@ -40,14 +41,19 @@ class Ish:
 
     def run(self):
         try:
-            command = input(Colors.RED + PS1.paraphraser() + "$ " + Colors.END)
-            com = command.split(" ")
-            if com[0] == "file":
-                with open(com[1], "r", encoding="utf-8-sig") as f:
-                    for line in f.readlines():
-                        self.run_file(line)
-            else:
-                self.run_command(command)
+            # 新建一个argparse的参数解析器，解析path参数
+            parser = ArgumentParser()
+            parser.add_argument("path", help="要执行的.sh文件路径")
+            args = parser.parse_args()
+
+            # 读取文件
+            with open(args.path, "r", encoding="utf-8-sig") as f:
+                for line in f.readlines():
+                    self.run_file(line)
+
+        except EOFError:
+            print("\nBye~")
+            exit(0)
         except KeyboardInterrupt:
             print("\nBye~")
             exit(0)
@@ -130,7 +136,7 @@ class Ish:
                 # 去掉两个首尾的空格（如：$ var = 100）
                 variable[0] = variable[0].strip()
                 variable[1] = variable[1].strip()
-                self.var_define(variable[0], eval(variable[1]))
+                self.var_define(variable[0], self.replace_var(variable[1]))
             else:
                 if line_split[0] in self.commands:
                     self.commands[line_split[0]](line_split[1:])
@@ -147,6 +153,16 @@ class Ish:
             else:
                 print(arg, end=" ")
         print()
+    
+    # 替换一个命令中的所有变量为它的值，然后返回计算结果
+    # 比如：$var1 + $var2，就会返回他俩的和
+    def replace_var(self, command):
+        # 替换所有$开头的变量
+        for var in self.variables:
+            command = command.replace("$" + var, str(self.var_call(var)))
+
+        # 计算表达式的值
+        return eval(command)
 
 if __name__ == "__main__":
     Ish()
