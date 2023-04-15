@@ -41,10 +41,17 @@ class Ish:
     def run(self):
         try:
             command = input(Colors.RED + PS1.paraphraser() + "$ " + Colors.END)
+            com = command.split(" ")
+            if com[0] == "file":
+                with open(com[1], "r", encoding="utf-8-sig") as f:
+                    for line in f.readlines():
+                        self.run_file(line)
+            else:
+                self.run_command(command)
         except KeyboardInterrupt:
             print("\nBye~")
             exit(0)
-        self.run_command(command)
+        
     
     # 变量定义
     def var_define(self, var, value):
@@ -110,6 +117,21 @@ class Ish:
         else:
             # 当没有内置命令时，执行模块，传入参数
             ExecuteModel(commandS[1:], commandS[0])
+
+    def run_file(self, file):
+        file = file.splitlines()
+        for line in file:
+            # print(line)
+            if line[0] == "#" or line[0] == ";":
+                continue # 跳过注释
+            elif line[0] == "$":
+                variable = line.split("=")
+                variable[0] = variable[0][1:] # 去掉$符号
+                # 去掉两个首尾的空格（如：$ var = 100）
+                variable[0] = variable[0].strip()
+                variable[1] = variable[1].strip()
+                self.var_define(variable[0], eval(variable[1]))
+            print(self.variables)
 
 
 if __name__ == "__main__":
