@@ -15,6 +15,7 @@ class ProgramInfo:
     registered_modules = ["print", "downlib", "dellib", "scan", "models", "shell", "alias", "bash", "*"]
     debug_mode = True
     ssr_path = r"./ssr/"
+    basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__))).replace("\\", "/")
 
 class SSR_Reader:
     # Shell System Resource Reader

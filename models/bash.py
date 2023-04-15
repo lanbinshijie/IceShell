@@ -10,6 +10,9 @@ import random
 import requests
 import threading
 import subprocess
+
+sys.path.append("..")
+
 from misc.Color import Colors
 from misc.Logo import Logo
 from misc.Info import ProgramInfo
@@ -18,8 +21,9 @@ from misc.Error import Error
 from tools.Phraser import PS1
 from tools.Phraser import alias
 from tools.SelfCheck import SelfCheck
+from main import ExecuteModel
 
-ALIAS = alias()
+# ALIAS = alias(path="alias.conf")
 
 # 新建一个Class，每个运行的sh程序都是在这个对象里的
 
@@ -28,10 +32,15 @@ class Ish:
     def __init__(self):
         self.variables = {}
         self.functions = {}
+        self.commands = {
+            "echo": print,
+        }
+        self.run()
         # 如 {"var1": "value1", "var2": 100}
 
-    def run(self, path):
-        ...
+    def run(self):
+        command = input("command: ")
+        self.run_command(command)
     
     # 变量定义
     def var_define(self, var, value):
@@ -87,3 +96,17 @@ class Ish:
     # 函数删除
     def func_delete(self, func_name):
         self.functions.pop(func_name)
+
+    # 运行命令
+    def run_command(self, command):
+        commandS = command.split(" ")
+
+        if command[0] in self.commands:
+            self.commands[command]()
+        else:
+            # 当没有内置命令时，执行模块，传入参数
+            ExecuteModel(commandS[1:], commandS[0])
+
+
+if __name__ == "__main__":
+    Ish()
