@@ -39,7 +39,11 @@ class Ish:
         # 如 {"var1": "value1", "var2": 100}
 
     def run(self):
-        command = input("command: ")
+        try:
+            command = input(Colors.RED + PS1.paraphraser() + "$ " + Colors.END)
+        except KeyboardInterrupt:
+            print("\nBye~")
+            exit(0)
         self.run_command(command)
     
     # 变量定义
