@@ -1,3 +1,5 @@
 $var="hello"
 $ah="meme"
 $num1=1
+echo 1
+echo $var

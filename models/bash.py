@@ -33,7 +33,7 @@ class Ish:
         self.variables = {}
         self.functions = {}
         self.commands = {
-            "echo": print,
+            "echo": self.fun_echo,
         }
         self.run()
         # 如 {"var1": "value1", "var2": 100}
@@ -121,7 +121,7 @@ class Ish:
     def run_file(self, file):
         file = file.splitlines()
         for line in file:
-            # print(line)
+            line_split = line.split(" ")
             if line[0] == "#" or line[0] == ";":
                 continue # 跳过注释
             elif line[0] == "$":
@@ -131,8 +131,22 @@ class Ish:
                 variable[0] = variable[0].strip()
                 variable[1] = variable[1].strip()
                 self.var_define(variable[0], eval(variable[1]))
-            print(self.variables)
+            else:
+                if line_split[0] in self.commands:
+                    self.commands[line_split[0]](line_split[1:])
+                else:
+                    # 当没有内置命令时，执行模块，传入参数
+                    ExecuteModel(line_split[1:], line_split[0])
 
+    def fun_echo(self, args):
+        for arg in args:
+            # 当参数为变量时，输出变量的值
+            if arg[0] == "$":
+                arg = arg[1:]
+                print(self.var_call(arg), end=" ")
+            else:
+                print(arg, end=" ")
+        print()
 
 if __name__ == "__main__":
     Ish()
