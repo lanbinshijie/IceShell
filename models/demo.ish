@@ -52,4 +52,19 @@ $condition=True
 > echo IF不成立
 !endif
 
-uname
+# 空条件，相当于False
+!if ()
+> echo IF2成立
+!else
+> echo IF2不成立
+!endif
+
+# not可以成为判断式的一部分
+# 此时，$condition为True，
+# 但是not $condition为False
+
+!if (not $condition)
+> echo IF3成立
+!else
+> echo IF3不成立
+!endif
