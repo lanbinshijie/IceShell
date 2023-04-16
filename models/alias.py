@@ -24,10 +24,8 @@ ALIAS = alias("alias.conf")
 # flu: 刷新别名配置文件
 # 创建一个类来实现
 
-from misc.Info import ProgramInfo
-
 class Aliaser:
-    def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf"):
+    def __init__(self, path="alias.conf"):
         self.path = path
         self.alias = alias(path)
 

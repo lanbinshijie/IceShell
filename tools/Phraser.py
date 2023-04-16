@@ -19,7 +19,7 @@ class PS1:
         return prompt
 
 class alias:
-    def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf"):
+    def __init__(self, path="tools/alias.conf"):
         with open(path, "r") as f:
             conf = f.read()
         
