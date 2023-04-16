@@ -20,9 +20,11 @@ from main import ExecuteModel
 class Ish:
     # 要预留程序定义变量的地方（可以用字典储存）
     def __init__(self):
+        self.kernel = ["Ish 1.0.0"]
         self.variables = {}
         self.functions = {}
         self.commands = {
+            "uname": self.fun_uname,
             "echo": self.fun_echo,
         }
         self.doing_if = False
@@ -182,7 +184,9 @@ class Ish:
             # 当参数为变量时，输出变量的值
             print(self.deal_var(arg), end="")
         print()
-    
+
+    def fun_uname(self, args=0):
+        print(self.kernel[0])    
 
     def deal_var(self, var):
         # 返回一个式子的值（先判断是否是变量，再判断是否是列表，最后判断是否是字典）

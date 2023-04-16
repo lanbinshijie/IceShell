@@ -52,3 +52,4 @@ $condition=True
 > echo IF不成立
 !endif
 
+uname
