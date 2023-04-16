@@ -13,27 +13,29 @@ from misc.Info import SSR_Reader
 from misc.Error import Error
 from tools.Phraser import PS1
 from tools.Phraser import alias
+# from models.bash import Ish
 
 ALIAS = alias()
+# ish = Ish()
 
 def ExecuteModel(args, moduleName):
-    if not SelfCheck.CheckModel(moduleName): return
-    # print(ProgramInfo.basedir+"/models")
-    os.chdir(rf"{ProgramInfo.basedir}/models")
-    # os.chdir(r"./models")
-    is_mutiple = False
-    if os.path.exists(f"{moduleName}.py"):
-        command = sys.executable + f" ./{moduleName}.py " + args
-    elif os.path.exists(f"./{moduleName}/main.py"):
-        os.chdir(rf"./{moduleName}")
-        command = sys.executable + f" ./main.py " + args
-        is_mutiple = True
+    if SelfCheck.CheckModel(moduleName):
+        os.chdir(rf"{ProgramInfo.basedir}/models")
+        if os.path.exists(f"{moduleName}.py"):
+            command = sys.executable + f" ./{moduleName}.py " + args
+        elif os.path.exists(f"./{moduleName}/main.py"):
+            os.chdir(rf"./{moduleName}")
+            command = sys.executable + f" ./main.py " + args
+        else:
+            if ALIAS.exsist(moduleName): 
+                command = ALIAS.get(moduleName)
+                command = sys.executable + f" ./{command}.py " + args
+        os.system(command)
+        os.chdir(rf"{ProgramInfo.basedir}")
+    # elif moduleName in
     else:
-        if ALIAS.exsist(moduleName): 
-            command = ALIAS.get(moduleName)
-            command = sys.executable + f" ./{command}.py " + args
-    os.system(command)
-    os.chdir(rf"{ProgramInfo.basedir}")
+        # print()
+        ...
 
 def IceShell():
     extra = ""
