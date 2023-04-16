@@ -18,7 +18,9 @@ ALIAS = alias()
 
 def ExecuteModel(args, moduleName):
     if not SelfCheck.CheckModel(moduleName): return
-    os.chdir(r"./models")
+    # print(ProgramInfo.basedir+"/models")
+    os.chdir(rf"{ProgramInfo.basedir}/models")
+    # os.chdir(r"./models")
     is_mutiple = False
     if os.path.exists(f"{moduleName}.py"):
         command = sys.executable + f" ./{moduleName}.py " + args
@@ -31,8 +33,7 @@ def ExecuteModel(args, moduleName):
             command = ALIAS.get(moduleName)
             command = sys.executable + f" ./{command}.py " + args
     os.system(command)
-    if is_mutiple: os.chdir(r"..")
-    os.chdir(r"..")
+    os.chdir(rf"{ProgramInfo.basedir}")
 
 def IceShell():
     extra = ""
