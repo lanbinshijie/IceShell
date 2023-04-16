@@ -8,6 +8,7 @@ import sys
 sys.path.append("..")
 
 from misc.Color import Colors
+from misc.Logo import Logo
 
 from argparse import ArgumentParser
 from main import ExecuteModel
@@ -24,8 +25,9 @@ class Ish:
         self.commands = {
             "echo": self.fun_echo,
         }
+        self.doing_if = False
+        self.doing_for = False
         self.run()
-        # 如 {"var1": "value1", "var2": 100}
 
     def run(self):
         try:
@@ -115,27 +117,64 @@ class Ish:
     def run_file(self, file):
         file = file.splitlines()
         for line in file:
-            line_split = line.split(" ")
-            # 跳过空行
-            if line == "":
-                continue
-            if line[0] == "#" or line[0] == ";":
-                continue # 跳过注释
-            elif line[0] == "$":
-                variable = line.split("=")
-                variable[0] = variable[0][1:] # 去掉$符号
-                # 去掉两个首尾的空格（如：$ var = 100）
-                variable[0] = variable[0].strip()
-                variable[1] = variable[1].strip()
-                self.var_define(variable[0], self.replace_var(variable[1]))
-            else:
-                if line_split[0] in self.commands:
-                    self.commands[line_split[0]](line_split[1:])
+            self.run_line(line)
+
+    def run_line(self, line):
+        line_split = line.split(" ")
+        # 跳过空行
+        if line == "":
+            return
+        if line[0] == "#" or line[0] == ";":
+            return # 跳过注释
+        elif line[0] == "$":
+            variable = line.split("=")
+            variable[0] = variable[0][1:] # 去掉$符号
+            # 去掉两个首尾的空格（如：$ var = 100）
+            variable[0] = variable[0].strip()
+            variable[1] = variable[1].strip()
+            self.var_define(variable[0], self.replace_var(variable[1]))
+        elif line[0] == "!":
+            # 特殊语句
+            # if
+            '''示例代码
+            !if (1==1)
+            > echo 1==1
+            > echo IF成立
+            !endif
+            '''
+            condition = line[1:].strip()
+            if condition[0:2] == "if":
+                # print("有if语句")
+                condition = condition[3:]
+                if eval(self.only_replace_var(condition)):
+                    # print("if成立")
+                    self.doing_if = True
                 else:
-                    # 当没有内置命令时，执行模块，传入参数
-                    # ExecuteModel(line_split[1:], line_split[0])
-                    print("".join(line_split[1:]), line_split[0])
-                    ExecuteModel("".join(line_split[1:]), line_split[0])
+                    # print("if不成立")
+                    self.doing_if = False
+            # endif
+            elif condition[0:6] == "endif":
+                self.doing_if = False
+            # else
+            elif condition[0:4] == "else":
+                self.doing_if = not self.doing_if
+            
+        elif line[0] == ">":
+            # 特殊代码块
+            # print("特殊代码块")
+            condition = line[1:].strip()
+            # 如果是if块内
+            if self.doing_if:
+                # print("if块内")
+                self.run_line(condition)       
+        else:
+            if line_split[0] in self.commands:
+                self.commands[line_split[0]](line_split[1:])
+            else:
+                # 当没有内置命令时，执行模块，传入参数
+                # ExecuteModel(line_split[1:], line_split[0])
+                print("".join(line_split[1:]), line_split[0])
+                ExecuteModel("".join(line_split[1:]), line_split[0])
 
     def fun_echo(self, args):
         # print("||".join(args))
@@ -171,9 +210,12 @@ class Ish:
             c = var.split(".")
             c = c[1].upper()
             return getattr(Colors, c)
+        elif var in ["Logo.line_b", "Logo.line_n", "Logo.line_b_l", "Logo.line_n_l", "Logo.line_b_m", "Logo.line_n_m", "Logo.line_b_s", "Logo.line_n_s"]:
+            c = var.split(".")
+            c = c[1].lower()
+            return getattr(Logo, "div_"+c)
         else:
             return var
-
     # 替换一个命令中的所有变量为它的值，然后返回计算结果
     def replace_var(self, command):
         # 替换所有$开头的变量
@@ -181,6 +223,12 @@ class Ish:
             command = command.replace("$" + var, str(self.var_call(var)))
         # 计算表达式的值
         return eval(command)
+    
+    def only_replace_var(self, command):
+        # 替换所有$开头的变量
+        for var in self.variables:
+            command = command.replace("$" + var, str(self.var_call(var)))
+        return command
     
     # 当变量是列表时，读取列表中的值
     def read_list(self, var, index):
