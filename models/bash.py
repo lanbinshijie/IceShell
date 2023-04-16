@@ -29,7 +29,7 @@ class Ish:
         }
         self.doing_if = False
         self.doing_for = False
-        self.run()
+        # self.run()
 
     def run(self):
         try:
@@ -264,4 +264,4 @@ class Ish:
             return False
 
 if __name__ == "__main__":
-    Ish()
+    Ish().run()
