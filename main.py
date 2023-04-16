@@ -13,6 +13,7 @@ from misc.Info import SSR_Reader
 from misc.Error import Error
 from tools.Phraser import PS1
 from tools.Phraser import alias
+from misc.Info import StartAction
 # from models.bash import Ish
 
 ALIAS = alias()
@@ -53,9 +54,15 @@ if __name__ == "__main__":
     # 程序从这里开始
     SelfCheck.WelcomeStart() # 显示Logo
     SelfCheck.LibCheck()
+
     ssr = SSR_Reader()
-    # print(ssr.paraphraser()["version"])
+    startup_name = "startup.ish"
+    mdls_stp = "../ssr/" + startup_name
+    mfol_stp = "./ssr/" + startup_name
+    if os.path.exists(mfol_stp):
+        ExecuteModel(mdls_stp, "bash")
     print(Colors.BLUE + Logo.div_line_n_m + Colors.END + "\n")
+
     while True:
         try:
             IceShell()

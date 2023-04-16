@@ -88,5 +88,12 @@ class SSR_Reader:
             return False
 
 
+class StartAction:
+    def __init__(self, path):
+        self.grub = ProgramInfo.basedir + "/ssr/" + path
+    def return_action(self):
+        with open(self.grub, "r") as f:
+            return f.read()
+
 
 

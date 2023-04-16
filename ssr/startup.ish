@@ -1,0 +1,16 @@
+# 启动程序，会在Shell启动时自动执行
+# 请将需要启动的程序或需要执行的命令放在这里
+# 请注意，这里的命令不会被记录到日志中
+
+# 输出绿色的字：这是来自startup.ish的输出
+echo Color.green [!][Truely][Yeah]这是来自startup.ish的输出 Color.end
+# 它可以是红色的
+# echo Color.red [!][Truely][Yeah]它可以是红色的 Color.end
+# 也可以是蓝色的
+# echo Color.blue [!][Truely][Yeah]也可以是蓝色的 Color.end
+# 也可以是黄色的
+# echo Color.yellow [!][Truely][Yeah]也可以是黄色的 Color.end
+
+
+# 你可以在这里执行任何命令
+
