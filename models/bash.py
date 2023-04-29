@@ -37,7 +37,7 @@ class Ish:
             parser = ArgumentParser()
             parser.add_argument("path", help="要执行的.sh文件路径")
             args = parser.parse_args()
-
+            # breakpoint()
             # 读取文件
             with open(args.path, "r", encoding="utf-8-sig") as f:
                 for line in f.readlines():
@@ -122,6 +122,10 @@ class Ish:
             self.run_line(line)
 
     def run_line(self, line):
+        # 将所有的[space]或者[SPACE]替换为一个空格
+        line = line.replace("[space]", " ")
+        line = line.replace("[SPACE]", " ")
+
         line_split = line.split(" ")
         # 跳过空行
         if line == "":
@@ -148,7 +152,11 @@ class Ish:
             if condition[0:2] == "if":
                 # print("有if语句")
                 condition = condition[3:]
-                if eval(self.only_replace_var(condition)):
+                if eval(
+                    self.replace_commands(
+                        self.only_replace_var(condition)
+                    )
+                ):
                     # print("if成立")
                     self.doing_if = True
                 else:
@@ -169,6 +177,15 @@ class Ish:
             if self.doing_if:
                 # print("if块内")
                 self.run_line(condition)       
+        
+        # 当有以%%开头的单词时（不一定是行的开始），如echo %%uname%%
+        # 将其替换为commands中的函数执行的结果
+        elif "%%" in line:
+            # 找到两个%%之间的字符串并将其替换为commands中的函数执行的结果
+            # 重复执行直到没有%%为止
+            self.run_line(self.replace_commands(line))
+        
+        
         else:
             if line_split[0] in self.commands:
                 self.commands[line_split[0]](line_split[1:])
@@ -185,8 +202,9 @@ class Ish:
             print(self.deal_var(arg), end="")
         print()
 
-    def fun_uname(self, args=0):
-        print(self.kernel[0])    
+    def fun_uname(self, args=0, inline=False):
+        if not inline: print(self.kernel[0])
+        else: return self.kernel[0]    
 
     def deal_var(self, var):
         # 返回一个式子的值（先判断是否是变量，再判断是否是列表，最后判断是否是字典）
@@ -227,6 +245,13 @@ class Ish:
             command = command.replace("$" + var, str(self.var_call(var)))
         # 计算表达式的值
         return eval(command)
+    
+    def replace_commands(self, line):
+        while "%%" in line:
+            start = line.find("%%")
+            end = line.find("%%", start+2)
+            line = line.replace(line[start:end+2], str(self.commands[line[start+2:end]](inline=True)))
+        return line
     
     def only_replace_var(self, command):
         # 替换所有$开头的变量

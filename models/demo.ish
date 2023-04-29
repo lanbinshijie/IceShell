@@ -68,3 +68,13 @@ $condition=True
 !else
 > echo IF3不成立
 !endif
+
+echo %%uname%%
+uname
+
+# 如果uname是Windows，那么就输出Windows
+!if ("%%uname%%" == "Windows")
+> echo Windows
+!else
+> echo Linux
+!endif
