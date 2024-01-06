@@ -13,27 +13,38 @@ class Aliaser:
     """
     This class manages command aliases stored in a configuration file.
     """
-    def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf"):
+    def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf", userPath=ProgramInfo.basedir + "/tools/alias.user.conf"):
         self.path = path
+        self.userPath = userPath
         self.alias = alias(path)
 
-    def _update_file(self, config):
+    def _update_file(self, config, user=True):
         """Writes the updated configuration to the file."""
-        with open(self.path, "w") as f:
-            for alias, command in config.items():
-                f.write(f"{alias}={command}\n")
+        if user:
+            with open(self.userPath, "w") as f:
+                for alias, command in config.items():
+                    f.write(f"{alias}={command}\n")
+        else:
+            with open(self.path, "w") as f:
+                for alias, command in config.items():
+                    f.write(f"{alias}={command}\n")
 
-    def add(self, alias, command):
+    def add(self, alias, command, user=True):
         """Adds a new alias."""
-        if self.alias.exist(alias):
+        if self.alias.exsist(alias):
             print(f"Alias {alias} already exists!")
             return
-        with open(self.path, "a") as f:
-            f.write(f"\n{alias}={command}")
+
+        if user:
+            with open(self.userPath, "a") as f:
+                f.write(f"\n{alias}={command}")
+        else:
+            with open(self.path, "a") as f:
+                f.write(f"\n{alias}={command}")
 
     def set(self, alias, command):
         """Sets an existing alias to a new command."""
-        if not self.alias.exist(alias):
+        if not self.alias.exsist(alias):
             print(f"Alias {alias} does not exist!")
             return
         config = self.alias.getAll()
@@ -42,7 +53,7 @@ class Aliaser:
 
     def delete(self, alias):
         """Deletes an existing alias."""
-        if not self.alias.exist(alias):
+        if not self.alias.exsist(alias):
             print(f"Alias {alias} does not exist!")
             return
         config = self.alias.getAll()
