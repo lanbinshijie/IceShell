@@ -19,6 +19,12 @@ Ice Shell（简称IShell，中文名“冰壳”），是一个Python编写的�
 
 **2024，回归更新咕咕咕！**
 
+![Run Shell](./docs/img/runShell.png)
+
+（老版图片）
+
+
+
 ## IShell设计初衷
 往往我们在用Python完成某个小功能时，我们都会直接新建单个Python文件，写完之后就放在一个不知名的小角落，然后使用的时候直接双击运行。
 
