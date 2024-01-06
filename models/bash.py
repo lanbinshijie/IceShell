@@ -4,6 +4,7 @@
 
 import os
 import sys
+import re
 
 sys.path.append("..")
 
@@ -29,6 +30,8 @@ class Ish:
         }
         self.doing_if = False
         self.doing_for = False
+        # 正则表达式，匹配开头为Color.*的规则
+        self.system_plugin = re.compile(r"Color\.[a-zA-Z0-9_]+")
         # self.run()
 
     def run(self):
@@ -198,8 +201,12 @@ class Ish:
     def fun_echo(self, args):
         # print("||".join(args))
         for arg in args:
-            # 当参数为变量时，输出变量的值
-            print(self.deal_var(arg), end="")
+            # 判断是否是系统内嵌语句
+            if self.system_plugin.match(arg):
+                # 当参数为变量时，输出变量的值
+                print(self.deal_var(arg), end="")
+            else:
+                print(self.deal_var(arg), end=" ")
         print()
 
     def fun_uname(self, args=0, inline=False):
