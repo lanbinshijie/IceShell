@@ -1,5 +1,7 @@
 import os
 import sys
+import argparse
+import re
 
 sys.path.append("..")
 
@@ -7,77 +9,114 @@ from tools.iPrint import iPrintLog
 from misc.Info import ProgramInfo
 from misc.Logo import Logo
 
-# 获取当前目录下的文件列表
-lists = os.listdir(".")
+class DisplayAllModules:
+    def __init__(self):
+        self.lists = os.listdir(".")
+        self.model_info = {}
 
-# 保留所有后缀名为.py的文件或者不以'__'开头的文件夹
-lists = [i for i in lists if i.endswith(".py") or ("." not in i and not i.startswith("__"))]
+    def filter_lists(self):
+        # 保留所有后缀名为.py的文件或者不以'__'开头的文件夹
+        self.lists = [i for i in self.lists if i.endswith(".py") or ("." not in i and not i.startswith("__"))]
+        for i in range(len(self.lists)):
+            if not self.lists[i].endswith(".py"):
+                self.lists[i] += "/main.py"
 
-for i in range(len(lists)):
-    if not lists[i].endswith(".py"):
-        lists[i] += "/main.py"
+    def parse_plugin_info(self):
+        # 获取插件信息
+        for i in range(len(self.lists)):
+            with open(self.lists[i], "r", encoding="utf-8") as f:
+                content = f.read()
+                if content.startswith("#! IcePlugin.v1"):
+                    plugin_name = content.split("PluginName: ")[1].split("\n")[0]
+                    author = content.split("Author: ")[1].split("\n")[0]
+                    description = content.split("Description: ")[1].split("\n")[0]
+                    version = content.split("Version: ")[1].split("\n")[0]
+                    last_edit = content.split("LastEdit: ")[1].split("\n")[0]
+                    self.model_info[self.lists[i]] = {
+                        "name": plugin_name,
+                        "author": author,
+                        "description": description,
+                        "version": version,
+                        "last_edit": last_edit,
+                    }
+
+    def display_all(self):
+        print("\nModels Found\t\tAuthor")
+        print(Logo.div_line_n)
+        for it in self.lists:
+            tabs = "\t\t\t" if len(it) < 8 else "\t\t"
+            author = self.model_info.get(it, {}).get("author", "None")
+            print(f"{it}{tabs}{author}")
+
+        print("\nCommands Found\t\tAuthor")
+        print(Logo.div_line_n)
+        for it in ProgramInfo.registered_modules:
+            if it != "*":
+                print(f"{it}\t\t\tNone")
+        print()
+        total_model = len(self.lists)
+        if total_model == 0:
+            iPrintLog("No models were found.", modelName="models", typer="error")
+            return
+        if len(ProgramInfo.registered_modules)-int("*" in ProgramInfo.registered_modules) == total_model:
+            # 注册的模型数量与实际模型数量相等
+            iPrintLog(f"Found {total_model} models. And {len(ProgramInfo.registered_modules)-1} models were registered.", modelName="models", typer="success")
+        else:
+            iPrintLog(f"Found {total_model} models. But only {len(ProgramInfo.registered_modules)} models were registered.", modelName="models", typer="warning")
 
 
-# 获取插件信息
-model_info = {}
-#! IcePlugin.v1
-#! PluginName: 
-#! Author: 
-#! Description: 
-#! Version: 
-#! LastEdit: 
+def add_spaces_for_chinese_characters(value):
+    # 使用正则表达式找到所有中文字符
+    chinese_characters = re.findall(r'[\u4e00-\u9fff]', value)
+    num_chinese_characters = len(chinese_characters)
 
-# 插件元信息如上所示，会放在文件开头，首先识别第一行的 #! IcePlugin.v1 
-# 然后根据后面的内容进行解析，如果没有第一行标识符就不用管信息
-for i in range(len(lists)):
-    # 读取文件内容
-    with open(lists[i], "r", encoding="utf-8") as f:
-        content = f.read()
-        # 解析文件内容
-        if content.startswith("#! IcePlugin.v1"):
-            # 解析插件信息
-            plugin_name = content.split("PluginName: ")[1].split("\n")[0]
-            author = content.split("Author: ")[1].split("\n")[0]
-            description = content.split("Description: ")[1].split("\n")[0]
-            version = content.split("Version: ")[1].split("\n")[0]
-            last_edit = content.split("LastEdit: ")[1].split("\n")[0]
-            # 存入model_info字典中
-            model_info[lists[i]] = {
-                "name": plugin_name,
-                "author": author,
-                "description": description,
-                "version": version,
-                "last_edit": last_edit,
-            }
+    # 在字符串后面添加相应数量的空格
+    return value + '1' * num_chinese_characters
 
+def display_module_info(input_name, all_modules):
+    found = False
+    input_name_lower = input_name.lower()
+    
+    # 检查是否有匹配的模块（不区分大小写）
+    for path, info in all_modules.model_info.items():
+        name_lower = info['name'].lower()
+        path_lower = path.lower()
+        if name_lower == input_name_lower or path_lower.endswith(input_name_lower + '.py'):
+            found = True
+            # 以表格形式打印信息
+            print(f"+{'-'*18}+{'-'*40}+")
+            print(f"| {'Attribute':^16} | {'Value':^38} |")
+            print(f"+{'-'*18}+{'-'*40}+")
+            for key, value in info.items():
+                value = add_spaces_for_chinese_characters(value)
+                print(f"| {key.capitalize():<16} | {value:<38} |")
+            print(f"+{'-'*18}+{'-'*40}+")
+            break
 
+    if not found:
+        # print(f"Module '{input_name}' not found.")
+        print(f"+{'-'*18}+{'-'*40}+")
+        print(f"| {'Attribute':^16} | {'Value':^38} |")
+        print(f"+{'-'*18}+{'-'*40}+")
+        key = "Error"
+        value = "Module doesn't exsist or has no MetaInfo."
+        print(f"| {key.capitalize():<16} | {value:<38} |")
+        print(f"+{'-'*18}+{'-'*40}+")
 
-total_model = len(lists)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("module", nargs="?", help="Module name or path to display its information.")
+    args = parser.parse_args()
 
-# 打印模型信息
-print("\nModels Found\t\tAuthor")
-print(Logo.div_line_n)
+    all_modules = DisplayAllModules()
+    all_modules.filter_lists()
+    all_modules.parse_plugin_info()
 
-for it in lists:
-    # 根据项目名称长度调整制表符
-    tabs = "\t\t\t" if len(it) < 8 else "\t\t"
-    author = "None"
-    if it in model_info:
-        author = model_info[it]["author"]
-    print(f"{it}{tabs}{author}")
+    if args.module:
+        display_module_info(args.module, all_modules)
+    else:
+        all_modules.display_all()
 
-print("\nCommands Found\t\tAuthor")
-print(Logo.div_line_n)
-
-for it in ProgramInfo.registered_modules:
-    if it != "*":
-        author = "None"
-        print(f"{it}\t\t\t{author}")
-print()
-
-if len(ProgramInfo.registered_modules)-int("*" in ProgramInfo.registered_modules) == total_model:
-    # 注册的模型数量与实际模型数量相等
-    iPrintLog(f"Found {total_model} models. And {len(ProgramInfo.registered_modules)-1} models were registered.", modelName="models", typer="success")
-else:
-    iPrintLog(f"Found {total_model} models. But {len(ProgramInfo.registered_modules)} models were registered.", modelName="models", typer="warning")
-iPrintLog(f"Models end!", modelName="models", typer="info")
+if __name__ == "__main__":
+    main()
+    iPrintLog(f"Models end!", modelName="models", typer="info")
