@@ -26,9 +26,19 @@ Ice Shell（简称IShell，中文名“冰壳”），是一个Python编写的�
 
 同时，IShell也为Shell类程序提供了良好的开发平台。您可以给予IShell开发您自己的程序（如远控，木马）等。
 
-**！如果您有开发远程控制、远程桌面、反弹shell等需求，您可以尝试使用IceShell**
+IShell的核心组件是插件（或者叫做模块），这些模块使用子进程，支持热插拔，随时更新随时运行。
+
+**！如果您有开发远程控制、远程桌面、反弹shell等需求，请使用IceShell**
 
 ## 碎语
+Iceshell时隔一年，马上要过生日了，清理磁盘的时候发现了这个小项目。觉得当时的我还挺可爱的，写了这样一个好玩的程序。特别是很多我当时写的代码都不知道逻辑时什么意思了，所以我打算捡起它，继续完成我未完成的梦想。感谢一路走来支持的那些好兄弟，感谢另一个一直watch开发进度的人！谢谢你们！
+
+—— Lanbin 2024年1月7日00:36:40
+
+
+---
+
+
 Iceshell马上要出1.0版本了，还是很激动的。
 
 Iceshell项目其实只是我一下心血来潮，主要目的是为接下来的项目打个基础，顺便学习一下git工作流，同时也方便自己日常生活和开发。
@@ -37,7 +47,6 @@ Iceshell项目其实只是我一下心血来潮，主要目的是为接下来的
 
 —— Lanbin 2023年1月15日18:04:39
 
-咕咕咕~
 
 ## IShell功能
 
@@ -51,9 +60,7 @@ Iceshell项目其实只是我一下心血来潮，主要目的是为接下来的
 
 更多功能敬请期待~
 
-有什么问题和建议可以直接提Issue或者PR
-
-有意开发可以加我微信：lanbinleo 或者 QQ：271360178
+有什么问题和建议可以直接提Issue或者P
 
 ## IShell自带功能
 IShell本质上作为一个模块化Shell，装载了一些小工具。
@@ -62,6 +69,7 @@ IShell本质上作为一个模块化Shell，装载了一些小工具。
 - [X] downlib - 自动下载所需的依赖库
 - [X] dellib - 手动删除某个依赖库
 - [X] scan - 端口扫描器，使用方法：scan host -st startPort -np endPort
+- [X] bash - 一款Lanbin自己写的简易编程语言，仿Shell
 - [ ] stress - 压力测试器
 - [ ] demo - 内置98%API，可以作为开发手册使用
 
@@ -103,11 +111,19 @@ IShell本质上作为一个模块化Shell，装载了一些小工具。
 
 ![Run Shell](./docs/img/runShell.png)
 
+
+新版截图（时隔一年，VSCode都换主题了）
+
+![New Screen](./docs/img/newImg.png)
+
+
+Demo输出
+
+![Demo Screen](./docs/img/bashDemo.png)
+
 # 参与开发
 
 您可以联系我的
-- 微信：lanbinleo
-- QQ：271360178
 - 邮箱：[me@lanbin.top](mailto:me@lanbin.top)
 
 或者直接提交issue
