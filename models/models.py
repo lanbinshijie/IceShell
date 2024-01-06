@@ -1,48 +1,39 @@
-
 import os
 import sys
 
 sys.path.append("..")
 
-from tools.iPrint import *
-
-from argparse import ArgumentParser
+from tools.iPrint import iPrintLog
 from misc.Info import ProgramInfo
 from misc.Logo import Logo
 
+# 获取当前目录下的文件列表
 lists = os.listdir(".")
 
-
-# 剔除lists中所有后缀名非.py的文件并保持原格式
-# lists = [i for i in lists if i.endswith(".py")]
-
-# 保留lists中所有后缀名为.py的文件或者不为__开头的文件夹
-lists = [i for i in lists if i.endswith(".py") or "." not in i and not i.startswith("__")]
-
+# 保留所有后缀名为.py的文件或者不以'__'开头的文件夹
+lists = [i for i in lists if i.endswith(".py") or ("." not in i and not i.startswith("__"))]
 
 total_model = len(lists)
 
-print("\nModels Found"+"\t\t"+"Author")
+# 打印模型信息
+print("\nModels Found\t\tAuthor")
 print(Logo.div_line_n)
 
 for it in lists:
     if not it.endswith(".py"):
-        it = it+"/main.py"
-    if len(it+"  ") < 8:
-        print(it+"   "+"\t"+"None")
-    elif len(it) < 14:
-        print(it+" "+"\t\t"+"None")
-    else:
-        print(it+"  \t"+"None")
+        it = it + "/main.py"
+    # 根据项目名称长度调整制表符
+    tabs = "\t\t\t" if len(it) < 8 else "\t\t"
+    author = "None"
+    print(f"{it}{tabs}{author}")
 
-print()
-
-print("\nCommands Found"+"\t\t"+"Author")
+print("\nCommands Found\t\tAuthor")
 print(Logo.div_line_n)
 
 for it in ProgramInfo.registered_modules:
     if it != "*":
-        print(it+"     "+"\t\t"+"None")
+        author = "None"
+        print(f"{it}\t\t\t{author}")
 print()
 
 if len(ProgramInfo.registered_modules)-int("*" in ProgramInfo.registered_modules) == total_model:
