@@ -26,5 +26,7 @@ config, author = read_man_conf()
 print("Man Help\tAuthor\tMan")
 print('--------------------------------------')
 for man in config:
-    print(f"{man}\t\t{author[man]}\t{config[man]}")
-
+    if len(man) <= 8:
+        print(f"{man}\t\t{author[man]}\t{config[man]}")
+    else:
+        print(f"{man}\t{author[man]}\t{config[man]}")
