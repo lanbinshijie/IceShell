@@ -35,7 +35,7 @@ def ExecuteModel(args, moduleName):
         os.chdir(rf"{ProgramInfo.basedir}")
     # elif moduleName in
     else:
-        # print()
+        # 因为 checkModel 会给出提示信息，所以就不用给出了
         ...
 
 def IceShell():
