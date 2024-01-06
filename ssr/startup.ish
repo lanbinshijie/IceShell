@@ -13,13 +13,14 @@
 
 
 # 你可以在这里执行任何命令
-!if ("%%uname%%" == "Windows")
-> echo Color.red [!][Truely][Yeah]你正在使用Windows Color.end
-!else
-> echo Color.green [!][Truely][Yeah]你正在使用不是Windows的系统 Color.end
+; !if ("%%uname%%" == "Windows")
+; > echo Color.red [!][Truely][Yeah]你正在使用Windows Color.end
+; !else
+; > echo Color.green [!][Truely][Yeah]你正在使用不是Windows的系统 Color.end
 
-echo Color.red [!][Info] 要编辑这个文件，你需要找到ssr配置中的startup.ish文件
-echo Color.yellow [!][Info] 这个文件会在开启Shell时被调用
-echo Color.green [!][Info] 你可以在这里写任何你想要的命令
-echo Color.blue [!][Info] 你也可以用这个文件调用任何其他启动文件
-echo [!][Try] 尝试输入"sh ../ssr/startup.ish"来调用本文件
+echo Color.red [!][Info] 要编辑这个文件，你需要找到ssr配置中的startup.ish文件 Color.end
+echo Color.yellow [!][Info] 这个文件会在开启Shell时被调用 Color.end
+echo Color.green [!][Info] 你可以在这里写任何你想要的命令 Color.end
+echo Color.blue [!][Info] 你也可以用这个文件调用任何其他启动文件 Color.end
+echo Color.cyan [!][Info] 尝试输入"sh ../ssr/startup.ish"来调用本文件 Color.end
+echo [!][Info] You are using %%uname%% kernel.
