@@ -101,6 +101,7 @@ IShell本质上作为一个模块化Shell，装载了一些小工具。
 - 报错易寻找具体位置
 ......
 
+
 # 使用方法
 
 1. 下载最新版Release [点我前往Release](https://github.com/lanbinshijie/IceShell/releases)
@@ -127,12 +128,19 @@ Demo输出
 
 ![Demo Screen](./docs/img/bashDemo.png)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lanbinshijie/iceshell&type=Date)](https://star-history.com/#lanbinshijie/iceshell&Date)
+
+
+
 # 参与开发
 
 您可以联系我的
 - 邮箱：[me@lanbin.top](mailto:me@lanbin.top)
 
 或者直接提交issue
+
 
 ## 近期任务
 
