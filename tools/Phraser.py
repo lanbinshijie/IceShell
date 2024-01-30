@@ -21,8 +21,12 @@ class PS1:
 class alias:
     def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf", userPath=ProgramInfo.basedir + "/tools/alias.user.conf", user=True):
         if user:
-            with open(userPath, "r") as f:
-                conf = f.read()
+            try:
+                with open(userPath, "r") as f:
+                    conf = f.read()
+            except:
+                with open(path, "r") as f:
+                    conf = f.read()
         else:
             with open(path, "r") as f:
                 conf = f.read()
