@@ -28,14 +28,14 @@ def ExecuteModel(args, moduleName):
     if SelfCheck.CheckModel(moduleName):
         os.chdir(rf"{ProgramInfo.basedir}/models")
         if os.path.exists(f"{moduleName}.py"):
-            command = sys.executable + f" ./{moduleName}.py " + args
+            command = f"\"{sys.executable}\"" + f" ./{moduleName}.py " + args
         elif os.path.exists(f"./{moduleName}/main.py"):
             os.chdir(rf"./{moduleName}")
-            command = sys.executable + f" ./main.py " + args
+            command = f"\"{sys.executable}\"" + f" ./main.py " + args
         else:
             if ALIAS.exsist(moduleName): 
                 command = ALIAS.get(moduleName)
-                command = sys.executable + f" ./{command}.py " + args
+                command = f"\"{sys.executable}\"" + f" ./{command}.py " + args
         os.system(command)
         os.chdir(rf"{ProgramInfo.basedir}")
     # elif moduleName in
