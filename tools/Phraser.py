@@ -19,9 +19,17 @@ class PS1:
         return prompt
 
 class alias:
-    def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf"):
-        with open(path, "r") as f:
-            conf = f.read()
+    def __init__(self, path=ProgramInfo.basedir + "/tools/alias.conf", userPath=ProgramInfo.basedir + "/tools/alias.user.conf", user=True):
+        if user:
+            try:
+                with open(userPath, "r") as f:
+                    conf = f.read()
+            except:
+                with open(path, "r") as f:
+                    conf = f.read()
+        else:
+            with open(path, "r") as f:
+                conf = f.read()
         
         conf = conf.split("\n")
         self.conf_dict = {}
@@ -44,9 +52,13 @@ class alias:
         self.reRead()
         return self.conf_dict
     
-    def reRead(self, path="../tools/alias.conf"):
-        with open(path, "r") as f:
-            conf = f.read()
+    def reRead(self, path="../tools/alias.conf", userPath="../tools/alias.user.conf", user=True):
+        if user:
+            with open(userPath, "r") as f:
+                conf = f.read()
+        else:
+            with open(path, "r") as f:
+                conf = f.read()
         
         conf = conf.split("\n")
         self.conf_dict = {}

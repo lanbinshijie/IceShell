@@ -15,6 +15,12 @@ class Error:
             "title": "Deleting error!", 
             "solve": "Please check pip\'s environment"
         },
+        30001: {
+            "typer": "error",
+            "model": "SECURITY",
+            "title": "PERMISSION DENIED!", 
+            "solve": "UPGRADE YOUR PERMISSION"
+        },
     }
     def printError(code: int):
         err = Error.error_list[code]

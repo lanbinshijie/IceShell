@@ -19,6 +19,12 @@ Ice Shell（简称IShell，中文名“冰壳”），是一个Python编写的�
 
 **2024，回归更新咕咕咕！**
 
+![Run Shell](./docs/img/runShell.png)
+
+（老版图片）
+
+
+
 ## IShell设计初衷
 往往我们在用Python完成某个小功能时，我们都会直接新建单个Python文件，写完之后就放在一个不知名的小角落，然后使用的时候直接双击运行。
 
@@ -95,6 +101,7 @@ IShell本质上作为一个模块化Shell，装载了一些小工具。
 - 报错易寻找具体位置
 ......
 
+
 # 使用方法
 
 1. 下载最新版Release [点我前往Release](https://github.com/lanbinshijie/IceShell/releases)
@@ -121,12 +128,19 @@ Demo输出
 
 ![Demo Screen](./docs/img/bashDemo.png)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lanbinshijie/iceshell&type=Date)](https://star-history.com/#lanbinshijie/iceshell&Date)
+
+
+
 # 参与开发
 
 您可以联系我的
 - 邮箱：[me@lanbin.top](mailto:me@lanbin.top)
 
 或者直接提交issue
+
 
 ## 近期任务
 
